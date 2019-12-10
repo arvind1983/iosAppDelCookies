@@ -65,7 +65,7 @@ void swizzled_pluginInitialize(id self, SEL _cmd)
         orig_pluginInitialize = NULL;
     }
 
-    [self addObserver:NSSelectorFromString(@"didReceiveLocalNotification:")
+    /*[self addObserver:NSSelectorFromString(@"didReceiveLocalNotification:")
                  name:CDVLocalNotification
                object:NULL];
 
@@ -75,7 +75,20 @@ void swizzled_pluginInitialize(id self, SEL _cmd)
 
     [self addObserver:NSSelectorFromString(@"didRegisterUserNotificationSettings:")
                  name:UIApplicationRegisterUserNotificationSettings
-               object:NULL];
+               object:NULL];*/
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishLaunching:) name:UIApplicationDidFinishLaunchingNotification object:nil];
+}
+
+- (void)finishLaunching:(NSNotification *)notification
+{
+    // Put here the code that should be on the AppDelegate.m
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"UIAlertView"
+        message:@"My message" delegate:self cancelButtonTitle:@"Cancel"
+        otherButtonTitles:@"OK", nil];
+    [alert show];
+    [alert release];
+
 }
 
 #pragma mark -
