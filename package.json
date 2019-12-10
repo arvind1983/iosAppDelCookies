@@ -1,0 +1,43 @@
+﻿{
+  "name": "cordova-plugin-app-delegate",
+  "version": "1.0.0",
+  "description": "Overrides UIApplicationDelegate events",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arvind1983/iosAppDelCookies.git"
+  },
+  "keywords": [
+    "appplant",
+    "UIApplicationDelegate",
+    "didRegisterUserNotificationSettings",
+    "didReceiveLocalNotification",
+    "didFinishLaunchingWithOptions",
+    "cordova",
+    "ecosystem:cordova"
+  ],
+  "cordova": {
+    "id": "cordova-plugin-app-delegate",
+    "platforms": [
+      "ios"
+    ]
+  },
+  "platforms": [
+    "ios"
+  ],
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.6.0"
+    }
+  ],
+  "author": "Sebastián Katzer, modified by Venkat",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/katzer/cordova-plugin-app-event/issues"
+  },
+  "homepage": "https://github.com/katzer/cordova-plugin-app-event#readme"
+}
