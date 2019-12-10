@@ -83,11 +83,11 @@ void swizzled_pluginInitialize(id self, SEL _cmd)
 - (void)finishLaunching:(NSNotification *)notification
 {
     // Put here the code that should be on the AppDelegate.m
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"UIAlertView"
-        message:@"My message" delegate:self cancelButtonTitle:@"Cancel"
-        otherButtonTitles:@"OK", nil];
-    [alert show];
-    [alert release];
+    UIAlertController * alert = [UIAlertController
+                alertControllerWithTitle:@"Title"
+                                 message:@"Message"
+                          preferredStyle:UIAlertControllerStyleAlert];
+    [self presentViewController:alert animated:YES completion:nil];
 
 }
 
