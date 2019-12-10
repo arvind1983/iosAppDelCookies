@@ -42,6 +42,11 @@
 
     <!-- ios -->
     <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="MyPMCordovaPlugin">
+                <param name="ios-package" value="MyPMCordovaPlugin" onload="true" />
+            </feature>
+        </config-file>
         <header-file src="src/ios/AppDelegate+APPAppEvent.h" />
         <source-file src="src/ios/AppDelegate+APPAppEvent.m" />
 
