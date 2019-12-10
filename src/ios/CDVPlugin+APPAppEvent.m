@@ -88,7 +88,7 @@ void swizzled_pluginInitialize(id self, SEL _cmd)
     alertController.view.tag = tag;
     UIAlertAction* MyAlert = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
     [alertController addAction:MyAlert];
-    [self presentViewController:alertController animated:YES completion:nil];
+    [self.viewController presentViewController:alertController animated:YES completion:nil];
 
 }
 
