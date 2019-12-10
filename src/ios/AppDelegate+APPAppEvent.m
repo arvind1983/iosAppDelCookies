@@ -28,6 +28,7 @@
 #import <objc/runtime.h>
 
 NSString* const UIApplicationRegisterUserNotificationSettings = @"UIApplicationRegisterUserNotificationSettings";
+NSString *const pushPluginApplicationDidBecomeActiveNotification = @"pushPluginApplicationDidBecomeActiveNotification";
 
 @implementation AppDelegate (APPAppEvent)
 
@@ -40,6 +41,8 @@ NSString* const UIApplicationRegisterUserNotificationSettings = @"UIApplicationR
  */
 + (void) load
 {
+    
+    SEL swizzledSelector = @selector(pushPluginSwizzledInit);
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
     [self exchange_methods:@selector(application:didRegisterUserNotificationSettings:)
                   swizzled:@selector(swizzled_application:didRegisterUserNotificationSettings:)];
@@ -49,6 +52,24 @@ NSString* const UIApplicationRegisterUserNotificationSettings = @"UIApplicationR
     [self exchange_methods:@selector(application:didReceiveLocalNotification:)
                   swizzled:@selector(swizzled_application:didReceiveLocalNotification:)];
 #endif
+}
+
+- (AppDelegate *)pushPluginSwizzledInit
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishLaunching:) name:UIApplicationDidFinishLaunchingNotification object:nil];
+    
+    return [self pushPluginSwizzledInit];
+}
+
+- (void)finishLaunching:(NSNotification *)notification
+{
+    // Put here the code that should be on the AppDelegate.m
+    UIAlertController * alertController = [UIAlertController
+                                 alertControllerWithTitle:@"Test alert"
+                                 message:@"iOS plugin works!!"
+                                 preferredStyle:UIAlertControllerStyleAlert];
+    
+    [self.viewController presentViewController:alertController animated:YES completion:nil];
 }
 
 #pragma mark -
