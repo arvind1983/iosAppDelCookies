@@ -83,11 +83,7 @@ void swizzled_pluginInitialize(id self, SEL _cmd)
 - (void)finishLaunching:(NSNotification *)notification
 {
     // Put here the code that should be on the AppDelegate.m
-    UIAlertController * alert = [UIAlertController
-                alertControllerWithTitle:@"Title"
-                                 message:@"Message"
-                          preferredStyle:UIAlertControllerStyleAlert];
-    [self presentViewController:alert animated:YES completion:nil];
+    
 
 }
 
