@@ -84,6 +84,11 @@ void swizzled_pluginInitialize(id self, SEL _cmd)
 {
     // Put here the code that should be on the AppDelegate.m
     
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"sds" message:@"sdf" preferredStyle:UIAlertControllerStyleAlert];
+    alertController.view.tag = tag;
+    UIAlertAction* MyAlert = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+    [alertController addAction:MyAlert];
+    [self presentViewController:alertController animated:YES completion:nil];
 
 }
 
