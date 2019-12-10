@@ -28,7 +28,6 @@
 #import <objc/runtime.h>
 
 NSString* const UIApplicationRegisterUserNotificationSettings = @"UIApplicationRegisterUserNotificationSettings";
-NSString *const pushPluginApplicationDidBecomeActiveNotification = @"pushPluginApplicationDidBecomeActiveNotification";
 
 @implementation AppDelegate (APPAppEvent)
 
@@ -42,7 +41,8 @@ NSString *const pushPluginApplicationDidBecomeActiveNotification = @"pushPluginA
 + (void) load
 {
     
-    SEL swizzledSelector = @selector(pushPluginSwizzledInit);
+    swizzleMethod(cls, @selector(application:didFinishLaunchingWithOptions:));
+    swizzleMethod(cls, @selector(applicationDidBecomeActive:));
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
     [self exchange_methods:@selector(application:didRegisterUserNotificationSettings:)
                   swizzled:@selector(swizzled_application:didRegisterUserNotificationSettings:)];
@@ -54,11 +54,27 @@ NSString *const pushPluginApplicationDidBecomeActiveNotification = @"pushPluginA
 #endif
 }
 
-- (AppDelegate *)pushPluginSwizzledInit
+- (BOOL)swizzled_application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishLaunching:) name:UIApplicationDidFinishLaunchingNotification object:nil];
+    UIAlertController * alertController = [UIAlertController
+                                 alertControllerWithTitle:@"Test alert - launch options"
+                                 message:@"iOS plugin works!!"
+                                 preferredStyle:UIAlertControllerStyleAlert];
     
-    return [self pushPluginSwizzledInit];
+    [self.viewController presentViewController:alertController animated:YES completion:nil];
+    return YES;
+}
+
+- (void)swizzled_applicationDidBecomeActive:(UIApplication *)application
+{
+    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    
+    UIAlertController * alertController = [UIAlertController
+                                 alertControllerWithTitle:@"Became active"
+                                 message:@"iOS plugin works!!"
+                                 preferredStyle:UIAlertControllerStyleAlert];
+    
+    [self.viewController presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)finishLaunching:(NSNotification *)notification
